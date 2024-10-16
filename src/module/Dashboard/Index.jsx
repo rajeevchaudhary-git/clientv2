@@ -28,22 +28,22 @@ function Dashboard() {
   }, [user.id]);
 
   const handleLogout = async () => {
-   try {
-    const url = `https://serverapi-2.vercel.app/api/logout/${user.id}`;
-    const response = await axios.post(url);
-    if(response.data.message=="log out sucessfully"){
-        console.log(response.data.message)
-    // Clear user data from local storage
-    localStorage.removeItem("user:token");
-    localStorage.removeItem("user:detail");
-    localStorage.setItem("logout","3242");
-    navigate("/sign-in");
+    try {
+      const url = `https://serverapi-2.vercel.app/api/logout/${user.id}`;
+      const response = await axios.post(url);
+      if (response.data.message === "log out successfully") {
+        console.log(response.data.message);
+        // Clear user data from local storage
+        localStorage.removeItem("user:token");
+        localStorage.removeItem("user:detail");
+        localStorage.setItem("logout", "3242");
+        navigate("/sign-in");
+      }
+    } catch (error) {
+      console.log("error");
     }
-   } catch (error) {
-    console.log("error");
-   }
-   
   };
+
   const socket = useMemo(() => {
     return io("https://serverapi-2.vercel.app/user-namespace");
   }, []);
@@ -153,42 +153,55 @@ function Dashboard() {
                         <button
                           onClick={handleLogout}
                           className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                        > <i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;
+                        >
+                          <i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;
                           Logout
                         </button>
                         <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
-                         <Link to={"/users"}><i className="fa-solid fa-user-plus"> &nbsp;</i>Add Friends</Link> 
+                          <Link to={"/users"}>
+                            <i className="fa-solid fa-user-plus"></i>&nbsp;Add Friends
+                          </Link>
                         </button>
                       </li>
                     </ul>
                   </div>
-                )}{" "}
+                )}
               </div>
             </div>
-    
-            <form className="example" >
-  <button type="submit"><i className="fa fa-search"></i></button>
-  <input type="text" placeholder="Search or start a new chat" name="search2"/>
-</form>
+
+            <form className="example">
+              <button type="submit">
+                <i className="fa fa-search"></i>
+              </button>
+              <input
+                type="text"
+                placeholder="Search or start a new chat"
+                name="search2"
+              />
+            </form>
           </div>
         </div>
-<div className="chat_div" style={{ 
-    backgroundImage: 'url("1.jpeg")', 
-    backgroundSize: 'cover', 
-    backgroundPosition: 'center', 
-    backgroundRepeat: 'no-repeat', 
-    backgroundColor: 'rgba(255, 255, 255, 0.5)', 
-    backdropFilter: 'blur(10px)', 
-    borderRadius: '15px', 
-    padding: '20px', 
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
 
+        <div
+          className="chat_div"
+          style={{
+            backgroundImage: 'url("1.jpeg")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "15px",
+            padding: "20px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+          }}
+        >
           {conversation.length > 0
             ? conversation.map(({ users, conversation_id }) => (
                 <div
                   key={conversation_id}
                   onClick={() => fetchMessage(conversation_id, users)}
-                  className="chat_profile cursor-pointer "
+                  className="chat_profile cursor-pointer"
                 >
                   <div className="dp">
                     <img src="peakpx (1).jpg" alt="dp" />
@@ -232,9 +245,9 @@ function Dashboard() {
 
         {messages.username && (
           <div className="Send_message">
-                 <button type="button" onClick={sendMessage} >    
+            <button type="button" onClick={sendMessage}>
               <i
-               className="fa-regular fa-face-smile smile z-20"
+                className="fa-regular fa-face-smile smile z-20"
                 style={{ fontSize: "25px" }}
               ></i>
             </button>
@@ -246,7 +259,7 @@ function Dashboard() {
               name="Send_message"
               id="message"
             />
-            <button type="button" onClick={sendMessage} >    
+            <button type="button" onClick={sendMessage}>
               <i
                 className="fa-solid fa-arrow-right z-20 right-6 fixed bottom-4"
                 style={{ fontSize: "30px" }}
