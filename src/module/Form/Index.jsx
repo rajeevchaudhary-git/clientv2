@@ -87,16 +87,16 @@ function Form({isloggedin = false,})
       
     }
     
-  return (
-    <div className='bg-[#e1edff]  h-screen flex justify-center items-center'>
+ return (
+    <div className=' h-screen flex justify-center items-center'>
 
-    <div className='bg-white w-[600px] h-[600px] shadow-lg rounded-lg flex justify-center items-center flex-col '>
-      <div className='text-3xl font-extrabold'>Welcome {isloggedin && 'back'}</div>
-      <div className='text-xl font-light mb-14'>{isloggedin?"Sign in to get explore" : "Sign up to get started"}</div>
+    <div className='bg-[#2a1953] shadow-[0_35px_60px_-15px_rgba(0.9,0.9,0.9,0.9)] border-x-4  w-[550px] h-[600px] rounded-3xl flex justify-center items-center flex-col '>
+      <div className='text-3xl font-extrabold text-slate-300'>Welcome {isloggedin && 'back'}</div>
+      <div className='text-xl font-light mb-14 text-slate-300'>{isloggedin?"Sign in to get explore" : "Sign up to get started"}</div>
       <form className='flex justify-center items-center flex-col w-full' onSubmit={handleSubmit}>
      {!isloggedin &&  <Input name='fullname' value={data.fullname} onchange={(e)=>{setdata({...data,fullname:e.target.value})}} type='text' placeholder='Enter the full name' label='Enter the full name' className='mb-3' />}
-      <Input name='email' value={data.email} onchange={(e)=>{setdata({...data,email:e.target.value})}} type='text' placeholder='Enter the email' label='Enter the email' className='mb-3' />
-      <Input name='password' value={data.password} onchange={(e)=>{setdata({...data,password:e.target.value})}} type='password' placeholder='Enter the password' label='Enter the password' className='mb-3'/>
+      <Input name='email' value={data.email} onchange={(e)=>{setdata({...data,email:e.target.value})}} type='text' placeholder='Enter the email' label='Enter the email' className='mb-3 ' />
+      <Input name='password' value={data.password} onchange={(e)=>{setdata({...data,password:e.target.value})}} type='password' placeholder='Enter the password' label='Enter the password' className='mb-3 '/>
       <Button type='submit' label={isloggedin ? "sign in" : "sign up"} className='w-full'/>
       <ToastContainer
         className="toast-container-center"
@@ -110,7 +110,7 @@ function Form({isloggedin = false,})
         draggable
         pauseOnHover
       />
-      {!isloggedin ? <div className='mt-2'>Already have an account   <span className='underline cursor-pointer '><Link to={'/sign-in'}>Sign in</Link></span></div> : (<div className='mt-2'>Register To start Chatting  <span className='underline cursor-pointer '><Link to={'/signup'}>Sign up</Link></span></div>)}
+      {!isloggedin ? <div className='mt-3 text-slate-300'>Already have an account   <span className='underline cursor-pointer '><Link to={'/sign-in'}>Sign in</Link></span></div> : (<div className='mt-3 text-slate-300'>Register To start Chatting  <span className='underline cursor-pointer '><Link to={'/signup'}>Sign up</Link></span></div>)}
       </form>
     </div>
     </div>
