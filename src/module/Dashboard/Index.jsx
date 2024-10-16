@@ -256,8 +256,8 @@ function Dashboard() {
         {messages.username && (
           <div className="Send_message">
             <input
-              onChange={(e) => setSenderMsg(e.target.value)}
-              value={senderMsg}
+              onChange={(e) => setSender_msg(e.target.value)}
+              value={sender_msg}
               placeholder="Type To Chat..."
               type="text"
               name="Send_message"
