@@ -126,72 +126,95 @@ function Dashboard() {
     }
   }, [messages.chats]);
 
-  return (
+ return (
     <div className="container">
-      <ToastContainer position="top-center" autoClose={5000} pauseOnHover />
+      <ToastContainer
+        className="toast-container-center"
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
 
       <div className="chatlisting">
         <div className="chat">
           <div className="search_chat">
-            <div className="flex">
-              <h1 className="mt-2 text-white text-3xl font-semibold">Chats</h1>
-              <div className="ml-auto mt-2 relative">
+            <div style={{ display: "flex" }}>
+              <h1 className="mt-2 text-3xl font-semibold">Chats</h1>
+              <div
+                style={{
+                  fontSize: "larger",
+                  marginLeft: "160px",
+                  marginTop: "8px",
+                }}
+              >
                 <h2
-                  className="cursor-pointer text-white flex items-center"
+                  className="cursor-pointer flex items-center"
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
                   <i className="fa-solid fa-user"></i>&nbsp; {user.name}
                 </h2>
                 {showDropdown && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg">
+                  <div className="z-10 absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg">
                     <ul className="py-1">
                       <li>
                         <button
                           onClick={handleLogout}
                           className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
-                          <i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;
-                          Logout
+                          <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                          &nbsp; Logout
                         </button>
-                        <Link to="/users" className="block w-full px-4 py-2 text-gray-700 hover:bg-gray-100">
-                          <i className="fa-solid fa-user-plus"></i>&nbsp; Add Friends
-                        </Link>
+                        <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                          <Link to={"/users"}>
+                            <i className="fa-solid fa-user-plus"> &nbsp;</i>Add
+                            Friends
+                          </Link>
+                        </button>
                       </li>
                     </ul>
                   </div>
                 )}
               </div>
             </div>
-
             <form className="example">
               <button type="submit">
                 <i className="fa fa-search"></i>
               </button>
-              <input type="text" placeholder="Search or start a new chat" name="search2" />
+              <input
+                type="text"
+                placeholder="Search or start a new chat"
+                name="search2"
+              />
             </form>
           </div>
+        </div>
 
-          <div className="chat_div">
-            {conversation.length > 0 ? (
-              conversation.map(({ users, conversation_id }) => (
-                <div
-                  key={conversation_id}
-                  onClick={() => fetchMessage(conversation_id, users)}
-                  className="chat_profile cursor-pointer"
-                >
-                  <div className="dp">
-                    <img src="peakpx (1).jpg" alt="dp" />
-                  </div>
-                  <div className="user_name">
-                    <h4>{users.name}</h4>
-                    <p className="message_preview">{users.email}</p>
-                  </div>
+        <div className="chat_div">
+          {conversation.length > 0 ? (
+            conversation.map(({ users, conversation_id }) => (
+              <div
+                key={conversation_id}
+                onClick={() => fetchMessage(conversation_id, users)}
+                className="chat_profile cursor-pointer"
+              >
+                <div className="dp">
+                  <img src="peakpx (1).jpg" alt="dp" />
                 </div>
-              ))
-            ) : (
-              <p>No conversations available</p>
-            )}
-          </div>
+                <div className="user_name">
+                  <h4>{users.name}</h4>
+                  <p className="message_preview">{users.email}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            "No conversations are available"
+          )}
         </div>
       </div>
 
@@ -201,9 +224,7 @@ function Dashboard() {
           <h4>{messages.username || "sonu chaudhary"}</h4>
         </div>
 
-        <div
-          className="message_box"
-          style={{
+        <div className="message_box" style={{
             backgroundImage: 'url("1.jpeg")',
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -211,10 +232,9 @@ function Dashboard() {
             borderRadius: "15px",
             padding: "20px",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-          }}
-        >
+          }} >
           {messages.chats.length > 0 ? (
-            messages.chats.map(({ message, user: { id } }, index) => (
+            messages.chats.map(({ message, user: { id } }, index) =>
               id === user.id ? (
                 <div key={`msg-${index}-${id}`} className="mesaage_packet">
                   <p className="msg">{message}</p>
@@ -224,7 +244,7 @@ function Dashboard() {
                   <p className="msg1">{message}</p>
                 </div>
               )
-            ))
+            )
           ) : (
             <div className="flex justify-center items-center">
               No messages available
@@ -235,21 +255,15 @@ function Dashboard() {
 
         {messages.username && (
           <div className="Send_message">
-            <button type="button" onClick={sendMessage}>
-              <i
-                className="fa-regular fa-face-smile smile"
-                style={{ fontSize: "25px" }}
-              ></i>
-            </button>
             <input
-              onChange={(e) => setSender_msg(e.target.value)}
-              value={sender_msg}
+              onChange={(e) => setSenderMsg(e.target.value)}
+              value={senderMsg}
               placeholder="Type To Chat..."
               type="text"
               name="Send_message"
               id="message"
             />
-             <button type="button" onClick={sendMessage}>
+            <button type="button" onClick={sendMessage}>
               Send{" "}
               <i
                 className="fa-solid fa-arrow-right"
