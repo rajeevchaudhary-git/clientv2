@@ -10,7 +10,7 @@
 .chat{
     height: 120px;
     width: 388px;
-    background-color: #0b3155;
+    background-color: rgb(9, 1, 46);
     position: fixed; 
      
 }
@@ -46,7 +46,7 @@
 .container {
     display: flex;
     height: 100vh; 
-    background-color: #0a3b55;
+    background-color: rgb(9, 1, 46);
 }
 
 /* Chat listing section fixed to the left */
@@ -62,6 +62,7 @@
     margin-top: 130px;
     
 }
+
 /* Chat profiles inside chat listing */
 .chat_profile {
     display: flex;
@@ -78,6 +79,7 @@
 .chat_profile:hover{
     background: rgba(138, 135, 135, 0.5);
     border-radius: 12px;
+    border: 1.6px solid rgb(208, 206, 218);
     width: 375px;
 }
 .chat_profile2:hover{
@@ -144,14 +146,14 @@
 .chatHelper_utility{
     width: 100%;
     height: 100%;
-    background-color: rgb(228, 197, 197);
+    background-color: rgb(9, 1, 46);
 }
 .name_section{
     display: flex;
     justify-content:flex-start;
     align-items: flex-start;
     color: white;
-    background-color:#0b3155 ;
+    background-color:rgb(9, 1, 46) ;
  width: 1130px;
  padding: 18px;
  font-size: 19px;
@@ -168,34 +170,37 @@ width: 1130px;
 /* margin-left: 9px; */
 padding: 17px;
 border: none;
-background-color: #f4f5df;
-color: #313549;
+background-color: #2a1953;
+
+color: #fdfdfd;
 outline: none;
 font-size:15px;
 }
 .Send_message button{
-    color: #0b3155 ;
+    color: rgb(217, 211, 240) ;
 }
 .Send_message .smile{
-    background-color: #f4f5df;
+    background-color: #2a1953;
     outline: none;
-    height: 56px;
+    height: 57px;
     width: 45px;
     padding: 14px;
 }
 .Send_message button:hover{
-    text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
-    background-color: #3d5a80;
+    text-shadow: 1px 1px 2px rgb(246, 248, 248), 0 0 1em rgb(150, 150, 165), 0 0 0.2em rgb(144, 144, 184);
+    background-color: #7991b1;
 }
 /* style for chat box is here  */
-.message_box{
-    height: 590px;
-    width: 1125px;
 
+.message_box{
+    height: 600px;
+    width: 1125px;
     position: fixed;
     margin-right: 10px;
     overflow-y: auto;
-    background-color: rgba(236, 231, 181, 0.815);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../public/digital-art-neon-mountains-lake-wallpaper-preview.jpg);
     padding: 10px;
     word-wrap: break-word;
     bottom:auto; 
@@ -207,9 +212,10 @@ font-size:15px;
 
 .mesaage_packet{
 /* height: 100px; */
-background-color: rgb(86, 86, 90);
+background-color: rgb(86, 86, 114);
+   border: 1.6px solid rgb(208, 206, 218);
 color: rgb(235, 235, 230);
-border-radius: 5px;
+border-radius: 11px;
 width: 15%;
 margin: 15px;
 margin-bottom: 10px;
@@ -219,9 +225,10 @@ text-wrap:wrap;
 }
 .mesaage_packet1{
     /* height: 100px; */
-    background-color: #194269 ;
+    background-color: #1d0e52 ;
+    border: 1px solid rgb(208, 206, 218);
     color: rgb(235, 235, 230);
-    border-radius: 5px;
+    border-radius: 11px;
     width: 15%;
 text-wrap:wrap;
 
