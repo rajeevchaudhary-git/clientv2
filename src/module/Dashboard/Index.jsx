@@ -184,17 +184,7 @@ function Dashboard() {
 
         <div
           className="chat_div"
-          style={{
-            backgroundImage: 'url("1.jpeg")',
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            backdropFilter: "blur(10px)",
-            borderRadius: "15px",
-            padding: "20px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-          }}
+         
         >
           {conversation.length > 0
             ? conversation.map(({ users, conversation_id }) => (
@@ -222,7 +212,17 @@ function Dashboard() {
           <h4>{messages.username ? messages.username : "sonu chaudhary"}</h4>
         </div>
 
-        <div className="message_box">
+        <div className="message_box"  style={{
+            backgroundImage: 'url("1.jpeg")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "15px",
+            padding: "20px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+          }}>
           {messages.chats.length > 0 ? (
             messages.chats.map(({ message, user: { id } }, index) =>
               id === user.id ? (
