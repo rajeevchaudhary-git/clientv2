@@ -249,10 +249,11 @@ function Dashboard() {
               name="Send_message"
               id="message"
             />
-            <button type="button" onClick={sendMessage}>
+             <button type="button" onClick={sendMessage}>
+              Send{" "}
               <i
                 className="fa-solid fa-arrow-right"
-                style={{ fontSize: "30px" }}
+                style={{ fontSize: "large" }}
               ></i>
             </button>
           </div>
