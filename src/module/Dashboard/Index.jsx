@@ -14,36 +14,36 @@ function Dashboard() {
   const [messages, setMessages] = useState({ chats: [], username: "" });
   const [sender_msg, setSender_msg] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-
   const messageEndRef = useRef(null);
-  const [LoginFlag, setLoginFlag] = useState(false);
 
-  // login message pop is here
+  // Login notification
   useEffect(() => {
     const isFirstLogin = localStorage.getItem("firstLogin");
-    if (user.id && isFirstLogin) {
+    if (user?.id && isFirstLogin) {
       toast.success("Logged in successfully!");
       localStorage.removeItem("firstLogin");
     }
-  }, [user.id]);
+  }, [user?.id]);
 
+  // Logout Function
   const handleLogout = async () => {
-   try {
-    const url = `https://serverapi-2.vercel.app/api/logout/${user.id}`;
-    const response = await axios.post(url);
-    if(response.data.message=="log out sucessfully"){
-        console.log(response.data.message)
-    // Clear user data from local storage
-    localStorage.removeItem("user:token");
-    localStorage.removeItem("user:detail");
-    localStorage.setItem("logout","3242");
-    navigate("/sign-in");
+    try {
+      const url = `https://serverapi-2.vercel.app/api/logout/${user.id}`;
+      const response = await axios.post(url);
+      if (response.data.message === "log out successfully") {
+        console.log(response.data.message);
+        // Clear user data from local storage
+        localStorage.removeItem("user:token");
+        localStorage.removeItem("user:detail");
+        localStorage.setItem("logout", "3242");
+        navigate("/sign-in");
+      }
+    } catch (error) {
+      console.log("Logout error", error);
     }
-   } catch (error) {
-    console.log("error");
-   }
-   
   };
+
+  // Initialize socket connection
   const socket = useMemo(() => {
     return io("http://localhost:3000/user-namespace");
   }, []);
@@ -61,30 +61,43 @@ function Dashboard() {
         chats: [...prev.chats, { user: data.user, message: data.message }],
       }));
     });
-  }, [socket]);
+  }, [socket, user.id]);
 
+  // Fetch conversations
   useEffect(() => {
     const fetchConversation = async () => {
-      const url = `https://serverapi-2.vercel.app/api/get-conversation/${user.id}`;
-      const response = await axios.get(url);
-      setConversation(response.data);
-      console.log(response);
+      try {
+        const url = `https://serverapi-2.vercel.app/api/get-conversation/${user.id}`;
+        const response = await axios.get(url);
+        setConversation(response.data);
+        console.log(response);
+      } catch (error) {
+        console.log("Error fetching conversations", error);
+      }
     };
     fetchConversation();
-  }, []);
+  }, [user.id]);
 
+  // Fetch messages for a selected conversation
   const fetchMessage = async (conversation_id, users) => {
-    const url = `https://serverapi-2.vercel.app/api/get-message/${conversation_id}`;
-    const response = await axios.get(url);
-    setMessages({
-      chats: response.data,
-      username: users.name,
-      id: users.id,
-      conv_id: conversation_id,
-    });
+    try {
+      const url = `https://serverapi-2.vercel.app/api/get-message/${conversation_id}`;
+      const response = await axios.get(url);
+      setMessages({
+        chats: response.data,
+        username: users.name,
+        id: users.id,
+        conv_id: conversation_id,
+      });
+    } catch (error) {
+      console.log("Error fetching messages", error);
+    }
   };
 
+  // Send message function
   const sendMessage = async () => {
+    if (!sender_msg.trim()) return; // Prevent sending empty messages
+
     socket.emit("sendMessage", {
       sender_id: user.id,
       conversation_id: messages.conv_id,
@@ -99,10 +112,14 @@ function Dashboard() {
       message: sender_msg,
       reciver_id: messages.id,
     };
-    const response = await axios.post(url, payload);
-    if (response) {
-      console.log(response);
-      setSender_msg("");
+    try {
+      const response = await axios.post(url, payload);
+      if (response) {
+        console.log(response);
+        setSender_msg("");
+      }
+    } catch (error) {
+      console.log("Error sending message", error);
     }
   };
 
@@ -153,23 +170,26 @@ function Dashboard() {
                         <button
                           onClick={handleLogout}
                           className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                        > <i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;
+                        >
+                          <i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;
                           Logout
                         </button>
-                        <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
-                         <Link to={"/users"}><i className="fa-solid fa-user-plus"> &nbsp;</i>Add Friends</Link> 
-                        </button>
+                        <Link to="/users" className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                          <i className="fa-solid fa-user-plus">&nbsp;</i>Add Friends
+                        </Link>
                       </li>
                     </ul>
                   </div>
-                )}{" "}
+                )}
               </div>
             </div>
-    
-            <form className="example" >
-  <button type="submit"><i className="fa fa-search"></i></button>
-  <input type="text" placeholder="Search or start a new chat" name="search2"/>
-</form>
+
+            <form className="example">
+              <button type="submit">
+                <i className="fa fa-search"></i>
+              </button>
+              <input type="text" placeholder="Search or start a new chat" name="search2" />
+            </form>
           </div>
         </div>
         <div className="chat_div">
@@ -200,15 +220,14 @@ function Dashboard() {
         </div>
 
         <div className="message_box">
-          
           {messages.chats.length > 0 ? (
             messages.chats.map(({ message, user: { id } }, index) =>
               id === user.id ? (
-                <div key={msg-${index}-${id}} className="mesaage_packet">
+                <div key={`msg-${index}-${id}`} className="mesaage_packet">
                   <p className="msg">{message}</p>
                 </div>
               ) : (
-                <div key={msg-${index}-${id}} className="mesaage_packet1">
+                <div key={`msg-${index}-${id}`} className="mesaage_packet1">
                   <p className="msg1">{message}</p>
                 </div>
               )
@@ -223,9 +242,9 @@ function Dashboard() {
 
         {messages.username && (
           <div className="Send_message">
-                 <button type="button" >    
+            <button type="button">
               <i
-               className="fa-regular fa-face-smile smile z-20"
+                className="fa-regular fa-face-smile smile z-20"
                 style={{ fontSize: "25px" }}
               ></i>
             </button>
@@ -237,7 +256,7 @@ function Dashboard() {
               name="Send_message"
               id="message"
             />
-            <button type="button" onClick={sendMessage} >    
+            <button type="button" onClick={sendMessage}>
               <i
                 className="fa-solid fa-arrow-right z-20 right-6 fixed bottom-4"
                 style={{ fontSize: "30px" }}
