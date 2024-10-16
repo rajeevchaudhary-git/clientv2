@@ -216,11 +216,11 @@ function Dashboard() {
           {messages.chats.length > 0 ? (
             messages.chats.map(({ message, user: { id } }, index) => (
               id === user.id ? (
-                <div key={`msg-${index}-${id}`} className="message_packet">
+                <div key={`msg-${index}-${id}`} className="mesaage_packet">
                   <p className="msg">{message}</p>
                 </div>
               ) : (
-                <div key={`msg-${index}-${id}`} className="message_packet1">
+                <div key={`msg-${index}-${id}`} className="mesaage_packet1">
                   <p className="msg1">{message}</p>
                 </div>
               )
