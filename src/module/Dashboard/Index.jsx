@@ -30,7 +30,7 @@ function Dashboard() {
     try {
       const url = `https://serverapi-2.vercel.app/api/logout/${user.id}`;
       const response = await axios.post(url);
-      if (response.data.message === "log out successfully") {
+      if (response.data.message === "log out sucessfully") {
         console.log(response.data.message);
         // Clear user data from local storage
         localStorage.removeItem("user:token");
