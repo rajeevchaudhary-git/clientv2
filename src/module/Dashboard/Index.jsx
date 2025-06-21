@@ -45,7 +45,7 @@ function Dashboard() {
 
   // Initialize socket connection
   const socket = useMemo(() => {
-    return io("http://localhost:3000/user-namespace");
+    return io("https://chatserver-lemon.vercel.app/user-namespace");
   }, []);
 
   useEffect(() => {
