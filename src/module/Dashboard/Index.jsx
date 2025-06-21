@@ -28,7 +28,7 @@ function Dashboard() {
   // Logout Function
   const handleLogout = async () => {
     try {
-      const url = `https://serverapi-2.vercel.app/api/logout/${user.id}`;
+      const url = `https://chatserver-lemon.vercel.app/api/logout/${user.id}`;
       const response = await axios.post(url);
       if (response.data.message === "log out sucessfully") {
         console.log(response.data.message);
@@ -67,7 +67,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchConversation = async () => {
       try {
-        const url = `https://serverapi-2.vercel.app/api/get-conversation/${user.id}`;
+        const url = `https://chatserver-lemon.vercel.app/api/get-conversation/${user.id}`;
         const response = await axios.get(url);
         setConversation(response.data);
         console.log(response);
@@ -81,7 +81,7 @@ function Dashboard() {
   // Fetch messages for a selected conversation
   const fetchMessage = async (conversation_id, users) => {
     try {
-      const url = `https://serverapi-2.vercel.app/api/get-message/${conversation_id}`;
+      const url = `https://chatserver-lemon.vercel.app/api/get-message/${conversation_id}`;
       const response = await axios.get(url);
       setMessages({
         chats: response.data,
@@ -105,7 +105,7 @@ function Dashboard() {
       reciver_id: messages.id,
     });
 
-    const url = `https://serverapi-2.vercel.app/api/save-message/`;
+    const url = `https://chatserver-lemon.vercel.app/api/save-message/`;
     const payload = {
       sender_id: user.id,
       conversation_id: messages.conv_id,

@@ -11,7 +11,7 @@ function Allusers() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const url = `https://serverapi-2.vercel.app/api/get-users/`;
+            const url = `https://chatserver-lemon.vercel.app/api/get-users/`;
             const response = await axios.get(url);
             setAppUsers(response.data);
             // console.log('Fetched Users:', response.data); 
@@ -21,7 +21,7 @@ function Allusers() {
 
     const createConversation = async(reciver_id)=>{
      const sender = loggedUser.id;
-     const url = `https://serverapi-2.vercel.app/api/create-conversation/`;
+     const url = `https://chatserver-lemon.vercel.app/api/create-conversation/`;
      const payload={
         senderId:sender,
         receiverId:reciver_id

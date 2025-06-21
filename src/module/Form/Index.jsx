@@ -42,7 +42,7 @@ function Form({isloggedin = false,})
     const handleSubmit= async (e)=>{
       e.preventDefault();
     
-       const url = `https://serverapi-2.vercel.app/api/${isloggedin ? 'login':'register'}`;
+       const url = `https://chatserver-lemon.vercel.app/api/${isloggedin ? 'login':'register'}`;
        const payload ={
         email:data.email,
         password:data.password,
